@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <title>Login Registro</title>
+</head>
+<body>
+    <div class="contanier col-8 mx-auto" style="display: flex; justify-content: space-between;">
+        <div class="izquierdo col-5 mx-auto">
+            <h2>Regístrate</h2>
+            
+            {% with messages = get_flashed_messages(category_filter=['registro'])  %}
+                {% if messages %}
+                <div class="alert alert-danger">
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            {% endwith %}
+
+            <form action="/registrar" method="post" name="registrar">
+                <div class="form-group">
+                    <label for="first_name">Primer Nombre</label>
+                    <input type="text" name="first_name" id="first_name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Apellido</label>
+                    <input type="text" name="last_name" id="last_name" class="form-control" value="{{session['last_name']}}">
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="texto" name="email" id="email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="password">Clave</label>
+                    <input type="password" name="password" id="password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="password_confirmacion">Confirmación clave</label>
+                    <input type="password" name="password_confirmacion" id="password_confirmacion" class="form-control">
+                    
+                </div>
+                <div style="margin-top: 20px;">
+                    <input type="submit" value="Registrarse" name="registrar" class="form-control btn btn-warning">
+                </div>
+            </form>
+
+        </div>
+        <div class="derecho col-5 mx-auto">
+            <h2>Iniciar Sesión</h2>
+
+            {% with messages = get_flashed_messages(category_filter=['login'])  %}
+            {% if messages %}
+            <div class="alert alert-danger">
+                {% for message in messages %}
+                    <p>{{message}}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}    
+
+            <form action="/login" method="post">
+                <div class="form-group">
+                    <label for="email2">E-mail</label>
+                    <input type="texto" name="email" id="email2" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="password2">Clave</label>
+                    <input type="password" name="password" id="password2" class="form-control">
+                </div>
+                <div style="margin-top: 20px;">
+                    <input type="submit" value="Entrar" name="entrar" class="form-control btn btn-warning">
+                </div>                   
+
+            </form>
+
+        </div>
+    </div>
+</body>
+</html>

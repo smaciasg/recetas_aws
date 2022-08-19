@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <title>Ingresaste</title>
+</head>
+<body>
+    <div class="container">
+        <nav class="col-10 mx-auto" style="display: flex ; justify-content:space-between; align-items:center;">
+            <h1>
+                ¡Bienvenid@! {{user.first_name}} {{user.last_name}}
+            </h1>
+            <a href="/visualizador_recetas">Ver recetas</a>
+            <a href="/logout" class="btn btn-danger">Cerrar Sessión</a>
+        </nav>
+        <main class="col-10 mx-auto">
+            {% with messages = get_flashed_messages(category_filter=['receta'])  %}
+            {% if messages %}
+            <div class="alert alert-danger">
+                {% for message in messages %}
+                    <p>{{message}}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+            <form action="/enviar_receta" method="post" class="form-control mx-auto col-8" style="display: flex ;">
+                <input type="hidden" name="creador_id" value="{{user.id}}">
+                <div class="derecha mx-auto col-5 ">
+                    <div>
+                        <label for="nombre_receta">Nombre</label>
+                        <br>
+                        <input type="text" name="nombre_receta" id="nombre_receta">
+                    </div>
+                    <div>
+                        <label for="">Descripción</label>
+                        <br>
+                        <textarea name="descripcion" id="descripcion" cols="50" rows="10"></textarea>
+                    </div>
+                    <div>
+                        <label for="instrucciones">Instrucciones</label>
+                        <br>
+                        <textarea name="instrucciones" id="instrucciones" cols="50" rows="10"></textarea>
+                    </div>
+                </div>
+                <div class="izquerda mx-auto col-5">
+                    <div>
+                        <label for="fecha_creacion">Fecha de creación</label>
+                        <br>
+                        <input type="date" name="fecha_creacion" id="fecha_creacion">
+                    </div>
+                    <br>
+                    <div>
+                        <label for="menor30">¿La receta tarda menos de 30 min?</label>
+                        <br>
+                        <input type="radio" name="menor30" id="menor30si" value="1" checked>Sí
+                        <input type="radio" name="menor30" id="menor30no" value="0" checked>No
+                    </div>
+                    <br><br>
+                    <div>
+                        <input type="submit" value="Guardar receta">
+                    </div>
+                </div>
+
+            </form>
+        </main>
+
+    </div>
+</body>
+</html>
